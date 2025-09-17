@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getBestOption, shuffle } from './utils';
+import { TypeAnimation } from 'react-type-animation';
 import questions from './assets/data/questions.json';
 import personalities from './assets/data/personalities.json'
 import backgroundVideo from './assets/videos/background1.mp4';
@@ -20,9 +21,6 @@ const App = () => {
   const IDLE_DELAY = 120000;
 
   const handleFullscreenChange = (e) => {
-    // console.log(e)
-    // const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement ||
-
     setFullscreen(document.fullscreenElement !== null)
   }
 
@@ -34,7 +32,7 @@ const App = () => {
       q.options = shuffle(q.options); // still shuffle their order
     });
 
-    if (!fullscreen) {
+    if (!fullscreen && location.hostname !== 'localhost') {
       document.documentElement.webkitRequestFullScreen();
       setFullscreen(true);
     }
@@ -46,6 +44,7 @@ const App = () => {
     questionTimer.current = null;
 
     const answerId = e.target.getAttribute('data-id');
+    console.log({ answerId })
     const order = parseInt(e.target.getAttribute('data-order'));
     const index = parseInt(e.target.getAttribute('data-index'));
 
@@ -60,7 +59,8 @@ const App = () => {
 
   const idleTimeout = () => {
     setQuestionIndex(-1);
-    setPersonality({})
+    setPersonality({});
+    setResponses([])
   };
 
   const resetIdleTimeout = () => {
@@ -84,7 +84,7 @@ const App = () => {
     if (questionIndex >= 0) {
       const questionEl = questionsRef.current?.children[questionIndex];
       setTimeout(() => {
-        questionEl?.scrollIntoView({ behavior: 'smooth' });
+        questionEl?.scrollIntoView({ block: 'start', behavior: 'smooth' });
       }, 500);
     }
   }, [questionIndex]);
@@ -114,7 +114,15 @@ const App = () => {
             className={`questions-question ${i > questionIndex ? 'hidden' : ''} ${i === questionIndex ? '' : 'disabled'}`}
           >
             <h1 className="questions-question-text">
-              {question.text}
+              {questionIndex === i && (
+                <TypeAnimation
+                  sequence={[question.text]}
+                  speed={1}
+                />
+              )}
+              {questionIndex > i && (
+                <>{question.text}</>
+              )}
             </h1>
 
             <div className="questions-question-options">
@@ -127,7 +135,21 @@ const App = () => {
                   className={`questions-question-options-option ${responses[i]?.id === option.id ? 'selected' : ''}`}
                   onClick={addResponse}
                 >
-                  {option.text}
+                  {questionIndex === i && (
+                    <TypeAnimation
+                      sequence={[
+                        '',
+                        6500,
+                        // order * 3000,
+                        option.text,
+                      ]}
+                      speed={1}
+                      cursor={false}
+                    />
+                  )}
+                  {questionIndex > i && (
+                    <span>{option.text}</span>
+                  )}
                 </button>
               ))
               }
@@ -137,7 +159,7 @@ const App = () => {
 
         <div className={`questions-results results ${personality.name ? '' : 'hidden'}`}>
           <h1 className="questions-results-text">Congratulations!</h1>
-          <h1 className="questions-results-text"><><span>Based on your answers you've matched with the</span><span class="accent">{`${personality.name}!`}</span></></h1>
+          <h1 className="questions-results-text"><><span>Based on your answers you've matched with the</span><span className="accent">{`${personality.name}!`}</span></></h1>
           <h2 className="questions-results-text">{personality.description}</h2>
           <h2 className="questions-results-text">
             <>
@@ -145,7 +167,9 @@ const App = () => {
               <span className="accent">{`${personality.drink} 🍹`}</span>
             </>
           </h2>
-          <button className="restart" onClick={start}>Restart</button>
+          <div className="restart">
+            <button onClick={start}>Restart</button>
+          </div>
         </div>
       </div>
 
