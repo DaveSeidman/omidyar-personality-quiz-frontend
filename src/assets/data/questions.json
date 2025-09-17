@@ -1,109 +1,91 @@
 [
   {
     "id": "q1",
-    "text": "Your weekend unexpectedly frees up. What do you do?",
+    "text": "When you think about the future of AI, what excites you most?",
     "options": [
       {
         "id": "A",
-        "text": "Sketch a quick plan: reservations, exhibit, dinner, cocktails",
-        "persona": "navigator"
+        "text": "Building bridges between communities"
       },
       {
         "id": "B",
-        "text": "Grab a backpack and chase whatever sounds fun—no itinerary",
-        "persona": "adventurer"
+        "text": "Creating opportunities for everyone to thrive"
       },
       {
         "id": "C",
-        "text": "Text friends/family and organize something everyone enjoys",
-        "persona": "caretaker"
-      },
-      {
-        "id": "D",
-        "text": "Find a weird pop-up/underground show nobody's heard of",
-        "persona": "iconoclast"
+        "text": "Opening doors to new innovations"
       }
     ]
   },
   {
     "id": "q2",
-    "text": "You pick the perfect entree from the menu. The waiter says they're out. What do you do?",
+    "text": "In your ideal digital world, who has the most influence over technology decisions?",
     "options": [
       {
         "id": "A",
-        "text": "Ask for the closest alternative and pick the nearest match",
-        "persona": "navigator"
+        "text": "Broad coalitions representing all voices"
       },
       {
         "id": "B",
-        "text": "Tell them to surprise you or choose something you've never tried",
-        "persona": "adventurer"
+        "text": "Workers and communities directly affected"
       },
       {
         "id": "C",
-        "text": "Check what your table is getting and pivot so you can share",
-        "persona": "caretaker"
-      },
-      {
-        "id": "D",
-        "text": "Ask about off-menu options or customize something unusual",
-        "persona": "iconoclast"
+        "text": "Visionary innovators with bold ideas"
       }
     ]
   },
   {
     "id": "q3",
-    "text": "What does Out-of-office mean to you?",
+    "text": "What's your preferred approach to solving complex problems?",
     "options": [
       {
         "id": "A",
-        "text": "Hand it to the station agent; leave your contact",
-        "image": "beach.png",
-        "persona": "navigator"
+        "text": "Bringing people together to collaborate"
       },
       {
         "id": "B",
-        "text": "Call the first ID/number and return it immediately",
-        "image": "hiking.png",
-        "persona": "adventurer"
+        "text": "Ensuring everyone benefits and is protected from harm"
       },
       {
         "id": "C",
-        "text": "Ask nearby riders; wait a few minutes, then pocket the cash and leave",
-        "image": "cafe.png",
-        "persona": "caretaker"
-      },
-      {
-        "id": "D",
-        "text": "Drop at nearest precinct and post a quick 'found' note",
-        "image": "couch.png",
-        "persona": "iconoclast"
+        "text": "Experimenting with creative solutions"
       }
     ]
   },
   {
     "id": "q4",
-    "text": "It's midnight and you just landed in JFK, your friend texts they can't pick you up anymore",
+    "text": "When you hear \"responsible technology,\" what comes to mind first?",
     "options": [
       {
-        "key": "A",
-        "text": "Ask for more heads-up next time",
-        "persona": "navigator"
+        "id": "A",
+        "text": "Democratic governance and accountability"
       },
       {
-        "key": "B",
-        "text": "Send a light “all good!” and mentally drop it—keep the night moving",
-        "persona": "adventurer"
+        "id": "B",
+        "text": "Universal access and shared benefits"
       },
       {
-        "key": "C",
-        "text": "Check they're okay, assume good intent, and suggest another time to connect",
-        "persona": "caretaker"
+        "id": "C",
+        "text": "Human-centered design and innovation"
+      }
+    ]
+  },
+  {
+    "id": "q5",
+    "text": "How do you envision your role in shaping our digital future?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Connecting networks and building alliances"
       },
       {
-        "key": "D",
-        "text": "Be candid and propose a new norm to avoid repeats",
-        "persona": "iconoclast"
+        "id": "B",
+        "text": "Advocating for inclusive systems and policies"
+      },
+      {
+        "id": "C",
+        "text": "Building tools that don't exist yet"
       }
     ]
   }

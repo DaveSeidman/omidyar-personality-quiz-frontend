@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import { modeRandomTie, shuffle } from './utils';
 import questions from './assets/data/questions.json';
 import backgroundVideo from './assets/videos/background1.mp4';
@@ -8,15 +7,15 @@ import './index.scss';
 
 const App = () => {
 
-  const [questionIndex, setQuestionIndex] = useState(null);
+  const [questionIndex, setQuestionIndex] = useState(-1);
   const [responses, setResponses] = useState([]);
   const [attract, setAttract] = useState(true);
   const [persona, setPersona] = useState();
   const questionTimer = useRef();
 
   const timeoutRef = useRef();
-  const TIMEOUT_DELAY = 20000;
-  const TIMEOUT_DURATION = 5000; // use this only if we want an "are you still there?" screen
+  const IDLE_DELAY = 20000;
+  const IDLE_DURATION = 5000; // use this only if we want an "are you still there?" screen
 
   const start = () => {
     setQuestionIndex(0);
@@ -38,7 +37,7 @@ const App = () => {
 
     setResponses(prev => {
       const next = [...prev];
-      next[index] = { persona: answerPersona, order, delay };
+      next[index] = { id: answerId, order, delay };
       return next;
     });
 
@@ -51,17 +50,18 @@ const App = () => {
 
   const resetIdleTimeout = () => {
     clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(idleTimeout, TIMEOUT_DELAY);
+    timeoutRef.current = setTimeout(idleTimeout, IDLE_DELAY);
   }
 
   useEffect(() => {
     questionTimer.current = performance.now();
 
     if (responses.length === questions.length) {
-      axios.post('http://localhost:8000/persona', { responses }).then(res => {
-        console.log(res.data)
-        setPersona(res.data);
-      })
+      console.log('calculate persona here')
+      // axios.post('http://localhost:8000/persona', { responses }).then(res => {
+      //   console.log(res.data)
+      //   setPersona(res.data);
+      // })
     }
   }, [responses.length])
 
@@ -77,30 +77,29 @@ const App = () => {
 
   return (
     <div className='app'>
-      <div className={`background ${questionIndex !== null && questionIndex >= 0 ? 'hidden' : ''}`}>
+      <div className='background'>
         <video src={backgroundVideo} muted loop autoPlay playsInline />
       </div>
-      <div className="questions">
+      <div className={`questions ${questionIndex >= 0 ? '' : 'hidden'}`}>
         {questions.map((question, i) => (
           <div
             key={question.id}
-            className={`questions-question ${i === questionIndex ? 'active' : ''}`}
+            className={`questions-question ${i > questionIndex ? 'hidden' : ''}`}
           >
             <h1 className="questions-question-text">{question.text}</h1>
             <div className="questions-question-options">
               {question.options.map((option, order) => (
                 <button
-                  key={option.id}
+                  key={`${question.id}-${option.id}`}
                   data-index={i}
                   data-id={option.id}
-                  data-persona={option.persona}
+                  // data-persona={option.persona}
                   data-order={order + 1}
                   style={{ transitionDelay: `${(order + 1) / 2}s` }}
                   className="questions-question-options-option"
                   onClick={addResponse}
-                >{option.image
-                  ? (<img src={option.image} />)
-                  : (<p>{option.text}</p>)}
+                >
+                  {option.text}
                 </button>
               ))}
             </div>
@@ -125,7 +124,7 @@ const App = () => {
         </button>
       </div>
       <button
-        className={`start ${questionIndex === null ? '' : 'hidden'}`}
+        className={`start ${questionIndex < 0 ? '' : 'hidden'}`}
         onClick={start}
       >
         Begin

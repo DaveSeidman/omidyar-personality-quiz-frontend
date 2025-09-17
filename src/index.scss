@@ -1,16 +1,18 @@
 @font-face {
-  font-family: 'Lexend';
-  src: url('assets/fonts/lexend.ttf');
+  font-family: 'Lineca';
+  src: url('assets/fonts/Lineca-Medium.ttf');
 }
 
 @font-face {
-  font-family: 'Love Light';
-  src: url('assets/fonts/LoveLight-Regular.ttf');
+  font-family: 'Feijoa';
+  src: url('assets/fonts/Feijoia-Medium.ttf');
+  font-weight: 300;
 }
 
 @font-face {
-  font-family: 'Bad Script';
-  src: url('assets/fonts/BadScript-Regular.ttf');
+  font-family: 'Feijoa';
+  src: url('assets/fonts/Feijoi-Display.ttf');
+  font-weight: 500;
 }
 
 $white: rgb(240, 241, 242);
@@ -30,31 +32,34 @@ html, body, #root, .app {
   background: $black;
 
   h1, h2, p, a, button, label {
-    font-family: 'Love Light';
+    font-family: 'Feijoa';
     color: $white;
     text-rendering: geometricPrecision;
     font-weight: 100;
   }
 
   button {
-    margin: 1rem;
-    background: rgba(2, 30, 45, 0.2);
-    border: 1px solid $white;
-    border-radius: 2rem;
-    font-size: 1.5rem;
-    backdrop-filter: blur(5px) brightness(150%);
+    margin: 1vh;
+    background: transparent;
+    // background: rgba(2, 30, 45, 0.2);
+    // border: 1px solid $white;
+    // border-radius: 2vh;
+    border: 1px solid white;
+    border-radius: 2vh;
+    font-size: 4vh;
+    // backdrop-filter: blur(5px) brightness(150%);
     box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
   }
 
   .background {
     position: absolute;
-    inset: 0;
+    inset: -4vh;
     transition: opacity 1s, visibility 1s;
-
-    &.hidden {
-      opacity: .5;
-      visibility: visible;
-    }
+    filter: blur(1vh);
+    // &.hidden {
+      // opacity: .5;
+      // visibility: visible;
+    // }
 
     video {
       width: 100%;
@@ -64,54 +69,71 @@ html, body, #root, .app {
   }
 
   .questions {
-    width: 100%;
+    position: absolute;
+    width: calc(100% - 10vh);
+    left: 5vh;
+    margin: auto;
+    outline: 3px solid red;
     height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
+
+    // height: 100%;
 
     &-question {
       width: 100vw;
-      height: 100vh;
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-wrap: balance;
+      // height: 100vh;
+      // position: absolute;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+      // text-wrap: balance;
+      overflow: hidden;
+      height: auto;
+      margin: 10vh 0;
 
+      &.hidden {
+        height: 0;
+      }
       &-text {
-        // height: 6rem;
+        // height: 6vh;
         // text-wrap: pretty;
-        font-size: 4rem;
+        font-size: 6vh;
         font-weight: 300;
-        text-align: center;
-        font-family: 'Lexend';
+        text-align: left;
+        font-family: 'Feijoa';
         text-shadow: 0 10px 20px rgba(0, 0, 0, .8);
         transition: opacity 1s;
-        margin: 3rem;
-        opacity: 0;
+        margin: 3vh 6vh;
+        // opacity: 0;
       }
 
       &-options {
-        height: calc(100vh - 6rem);
+        // height: calc(100vh - 6vh);
         // outline: 2px solid red;
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        // flex-wrap: no-wrap;
+        justify-content: flex-end;
         align-items: center;
-        gap: 1rem;
+        gap: 1vh;
 
         &-option {
-          width: calc(50% - 5rem);
-          height: 50%;
+          width: calc(50% - 5vh);
+          // height: 50%;
           // flex: 2;
-          // height: 30rem;
+          // height: 30vh;
           transition: opacity 1s, visibility 1s;
-          opacity: 0;
+          // opacity: 0;
 
-          p {            margin: 0;
-            font-family: 'Bad Script';
-            line-height: 6rem;
-            font-size: 4rem;
-            padding: 2rem 4rem;
+          p {            
+            margin: 0;
+            font-family: 'Feijoa';
+            line-height: 6vh;
+            font-size: 4vh;
+            padding: 2vh 4vh;
             letter-spacing: -1px;
           }
 
@@ -119,7 +141,7 @@ html, body, #root, .app {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 2rem;
+            border-radius: 2vh;
           }
         }
       }
@@ -142,41 +164,41 @@ html, body, #root, .app {
     inset: 0;
 
     &-title {
-      font-family: 'Lexend';
+      font-family: 'Feijoa';
       font-weight: 200;
       text-transform: uppercase;
 
       text-align: center;
-      font-size: 6rem;
+      font-size: 6vh;
       letter-spacing: 5px;
-      margin: 4rem;
+      margin: 4vh;
     }
 
     &-subtitle {
       text-align: center;
-      font-size: 5rem;
-      margin: 5rem;
+      font-size: 5vh;
+      margin: 5vh;
 
       p {
         display: inline;
-        font-family: 'Bad Script';
+        font-family: 'Feijoa';
 
         &.bold {
-          font-family: 'Love Light';
+          font-family: 'Feijoa';
           font-weight: 500;
-          font-size: 7rem;
-          margin: 0 2rem;
+          font-size: 7vh;
+          margin: 0 2vh;
         }
       }
     }
 
     &-poem {
-      font-size: 4rem;
+      font-size: 4vh;
       text-align: center;
 
       &-line {
-        margin: 0 2rem;
-        font-family: 'Bad Script';
+        margin: 0 2vh;
+        font-family: 'Feijoa';
 
         em {
           text-decoration: underline;
@@ -187,17 +209,17 @@ html, body, #root, .app {
 
   .start, .restart {
     position: absolute;
-    font-family: 'Lexend';
+    font-family: 'Feijoa';
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2rem;
-    padding: 1rem 2rem;
+    font-size: 2vh;
+    padding: 1vh 2vh;
     font-weight: bold;
   }
 
   .restart {
-    top: calc(100% - 5rem);
+    top: calc(100% - 5vh);
   }
 
   .hidden {
