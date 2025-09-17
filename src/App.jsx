@@ -18,7 +18,7 @@ const App = () => {
   const questionsRef = useRef();
 
   const timeoutRef = useRef();
-  const IDLE_DELAY = 120000;
+  const IDLE_DELAY = 60000;
 
   const handleFullscreenChange = (e) => {
     setFullscreen(document.fullscreenElement !== null)
