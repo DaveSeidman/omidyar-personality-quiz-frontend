@@ -1,0 +1,207 @@
+@font-face {
+  font-family: 'Lexend';
+  src: url('assets/fonts/lexend.ttf');
+}
+
+@font-face {
+  font-family: 'Love Light';
+  src: url('assets/fonts/LoveLight-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Bad Script';
+  src: url('assets/fonts/BadScript-Regular.ttf');
+}
+
+$white: rgb(240, 241, 242);
+$black: rgb(10, 9, 8);
+
+html, body, #root, .app {
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.app {
+  background: $black;
+
+  h1, h2, p, a, button, label {
+    font-family: 'Love Light';
+    color: $white;
+    text-rendering: geometricPrecision;
+    font-weight: 100;
+  }
+
+  button {
+    margin: 1rem;
+    background: rgba(2, 30, 45, 0.2);
+    border: 1px solid $white;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    backdrop-filter: blur(5px) brightness(150%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
+  }
+
+  .background {
+    position: absolute;
+    inset: 0;
+    transition: opacity 1s, visibility 1s;
+
+    &.hidden {
+      opacity: .5;
+      visibility: visible;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .questions {
+    width: 100%;
+    height: 100%;
+
+    &-question {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-wrap: balance;
+
+      &-text {
+        // height: 6rem;
+        // text-wrap: pretty;
+        font-size: 4rem;
+        font-weight: 300;
+        text-align: center;
+        font-family: 'Lexend';
+        text-shadow: 0 10px 20px rgba(0, 0, 0, .8);
+        transition: opacity 1s;
+        margin: 3rem;
+        opacity: 0;
+      }
+
+      &-options {
+        height: calc(100vh - 6rem);
+        // outline: 2px solid red;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        &-option {
+          width: calc(50% - 5rem);
+          height: 50%;
+          // flex: 2;
+          // height: 30rem;
+          transition: opacity 1s, visibility 1s;
+          opacity: 0;
+
+          p {            margin: 0;
+            font-family: 'Bad Script';
+            line-height: 6rem;
+            font-size: 4rem;
+            padding: 2rem 4rem;
+            letter-spacing: -1px;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2rem;
+          }
+        }
+      }
+
+      &.active {
+        .questions-question {
+          &-text {
+            opacity: 1;
+          }
+          &-options-option {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .results {
+    position: absolute;
+    inset: 0;
+
+    &-title {
+      font-family: 'Lexend';
+      font-weight: 200;
+      text-transform: uppercase;
+
+      text-align: center;
+      font-size: 6rem;
+      letter-spacing: 5px;
+      margin: 4rem;
+    }
+
+    &-subtitle {
+      text-align: center;
+      font-size: 5rem;
+      margin: 5rem;
+
+      p {
+        display: inline;
+        font-family: 'Bad Script';
+
+        &.bold {
+          font-family: 'Love Light';
+          font-weight: 500;
+          font-size: 7rem;
+          margin: 0 2rem;
+        }
+      }
+    }
+
+    &-poem {
+      font-size: 4rem;
+      text-align: center;
+
+      &-line {
+        margin: 0 2rem;
+        font-family: 'Bad Script';
+
+        em {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .start, .restart {
+    position: absolute;
+    font-family: 'Lexend';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+  }
+
+  .restart {
+    top: calc(100% - 5rem);
+  }
+
+  .hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

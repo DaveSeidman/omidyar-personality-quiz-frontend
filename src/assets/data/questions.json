@@ -1,0 +1,110 @@
+[
+  {
+    "id": "q1",
+    "text": "Your weekend unexpectedly frees up. What do you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Sketch a quick plan: reservations, exhibit, dinner, cocktails",
+        "persona": "navigator"
+      },
+      {
+        "id": "B",
+        "text": "Grab a backpack and chase whatever sounds fun—no itinerary",
+        "persona": "adventurer"
+      },
+      {
+        "id": "C",
+        "text": "Text friends/family and organize something everyone enjoys",
+        "persona": "caretaker"
+      },
+      {
+        "id": "D",
+        "text": "Find a weird pop-up/underground show nobody's heard of",
+        "persona": "iconoclast"
+      }
+    ]
+  },
+  {
+    "id": "q2",
+    "text": "You pick the perfect entree from the menu. The waiter says they're out. What do you do?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ask for the closest alternative and pick the nearest match",
+        "persona": "navigator"
+      },
+      {
+        "id": "B",
+        "text": "Tell them to surprise you or choose something you've never tried",
+        "persona": "adventurer"
+      },
+      {
+        "id": "C",
+        "text": "Check what your table is getting and pivot so you can share",
+        "persona": "caretaker"
+      },
+      {
+        "id": "D",
+        "text": "Ask about off-menu options or customize something unusual",
+        "persona": "iconoclast"
+      }
+    ]
+  },
+  {
+    "id": "q3",
+    "text": "What does Out-of-office mean to you?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Hand it to the station agent; leave your contact",
+        "image": "beach.png",
+        "persona": "navigator"
+      },
+      {
+        "id": "B",
+        "text": "Call the first ID/number and return it immediately",
+        "image": "hiking.png",
+        "persona": "adventurer"
+      },
+      {
+        "id": "C",
+        "text": "Ask nearby riders; wait a few minutes, then pocket the cash and leave",
+        "image": "cafe.png",
+        "persona": "caretaker"
+      },
+      {
+        "id": "D",
+        "text": "Drop at nearest precinct and post a quick 'found' note",
+        "image": "couch.png",
+        "persona": "iconoclast"
+      }
+    ]
+  },
+  {
+    "id": "q4",
+    "text": "It's midnight and you just landed in JFK, your friend texts they can't pick you up anymore",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ask for more heads-up next time",
+        "persona": "navigator"
+      },
+      {
+        "key": "B",
+        "text": "Send a light “all good!” and mentally drop it—keep the night moving",
+        "persona": "adventurer"
+      },
+      {
+        "key": "C",
+        "text": "Check they're okay, assume good intent, and suggest another time to connect",
+        "persona": "caretaker"
+      },
+      {
+        "key": "D",
+        "text": "Be candid and propose a new norm to avoid repeats",
+        "persona": "iconoclast"
+      }
+    ]
+  }
+]
