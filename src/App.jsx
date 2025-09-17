@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { shuffle } from './utils';
-import Typewriter from 'typewriter-effect';
+import { getBestOption, shuffle } from './utils';
 import questions from './assets/data/questions.json';
+import personalities from './assets/data/personalities.json'
 import backgroundVideo from './assets/videos/background1.mp4';
 import logo from './assets/images/logo.svg';
 
@@ -10,7 +10,7 @@ import './index.scss';
 const App = () => {
   const [questionIndex, setQuestionIndex] = useState(-1);
   const [responses, setResponses] = useState([]);
-  const [persona, setPersona] = useState();
+  const [personality, setPersonality] = useState({});
 
   const questionTimer = useRef();
   const questionsRef = useRef();
@@ -18,13 +18,10 @@ const App = () => {
   const timeoutRef = useRef();
   const IDLE_DELAY = 60000;
 
-  const questionTypewriters = useRef([]);
-  const optionTypewriters = useRef({});
-
   const start = () => {
     setQuestionIndex(0);
     setResponses([]);
-    setPersona();
+    setPersonality({});
     questions.forEach((q) => {
       q.options = shuffle(q.options); // still shuffle their order
     });
@@ -61,7 +58,11 @@ const App = () => {
     questionTimer.current = performance.now();
 
     if (responses.length === questions.length) {
-      console.log('calculate persona here');
+      const bestOption = getBestOption(responses);
+      console.log({ bestOption })
+      const matchedPersonality = personalities.find(p => p.id === bestOption.id)
+      console.log({ matchedPersonality })
+      setPersonality(matchedPersonality)
       // axios.post('http://localhost:8000/persona', { responses }).then(res => {
       //   setPersona(res.data);
       // });
@@ -70,10 +71,9 @@ const App = () => {
 
   useEffect(() => {
     if (questionIndex >= 0) {
-      questionTypewriters.current[questionIndex]?.start();
+      // questionTypewriters.current[questionIndex]?.start();
 
-      const questionEl =
-        questionsRef.current?.children[questionIndex];
+      const questionEl = questionsRef.current?.children[questionIndex];
       questionEl?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [questionIndex]);
@@ -96,29 +96,10 @@ const App = () => {
         {questions.map((question, i) => (
           <div
             key={question.id}
-            className={`questions-question ${i > questionIndex ? 'hidden' : ''
-              } ${i === questionIndex ? '' : 'disabled'}`}
+            className={`questions-question ${i > questionIndex ? 'hidden' : ''} ${i === questionIndex ? '' : 'disabled'}`}
           >
             <h1 className="questions-question-text">
-              <Typewriter
-                onInit={(tw) => {
-                  questionTypewriters.current[i] = tw;
-                  tw.typeString(question.text).callFunction(() => {
-                    console.log('Finished question:', question.text);
-
-                    // animate options in render order
-                    question.options.forEach((_, order) => {
-                      setTimeout(() => {
-                        optionTypewriters.current[`${i}-${order}`]?.start();
-                      }, order * 1200);
-                    });
-                  });
-                }}
-                options={{
-                  autoStart: false,
-                  delay: 60,
-                }}
-              />
+              {question.text}
             </h1>
 
             <div className="questions-question-options">
@@ -128,28 +109,22 @@ const App = () => {
                   data-index={i}
                   data-id={option.id}
                   data-order={order + 1}
-                  className={`questions-question-options-option ${responses[i]?.id === option.id ? 'selected' : ''
-                    }`}
+                  className={`questions-question-options-option ${responses[i]?.id === option.id ? 'selected' : ''}`}
                   onClick={addResponse}
                 >
-                  <Typewriter
-                    onInit={(tw) => {
-                      optionTypewriters.current[`${i}-${order}`] = tw;
-                      tw.typeString(option.text).callFunction(() => {
-                        console.log('Finished option:', option.text);
-                      });
-                    }}
-                    options={{
-                      autoStart: false,
-                      delay: 40,
-                    }}
-                  />
+                  {option.text}
                 </button>
               ))
               }
             </div>
           </div>
         ))}
+
+        <div className={`questions-results results ${personality.name ? '' : 'hidden'}`}>
+          <h1 className="questions-results-text">{`Congratulations! Based on your answers you've matched with the ${personality.name}!`}</h1>
+          <h2 className="questions-results-text">{personality.description}</h2>
+          <h2 className="questions-results-text">{`Ask your bartender for a: ${personality.drink}`}</h2>
+        </div>
       </div>
 
       <button
