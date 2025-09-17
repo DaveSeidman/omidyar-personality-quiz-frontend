@@ -17,7 +17,7 @@ const App = () => {
   const questionsRef = useRef();
 
   const timeoutRef = useRef();
-  const IDLE_DELAY = 60000;
+  const IDLE_DELAY = 120000;
 
   const handleFullscreenChange = (e) => {
     // console.log(e)
@@ -136,7 +136,8 @@ const App = () => {
         ))}
 
         <div className={`questions-results results ${personality.name ? '' : 'hidden'}`}>
-          <h1 className="questions-results-text"><><span>Congratulations!</span><span>Based on your answers you've matched with the</span><span class="accent">{personality.name}</span><span>!</span></></h1>
+          <h1 className="questions-results-text">Congratulations!</h1>
+          <h1 className="questions-results-text"><><span>Based on your answers you've matched with the</span><span class="accent">{`${personality.name}!`}</span></></h1>
           <h2 className="questions-results-text">{personality.description}</h2>
           <h2 className="questions-results-text">
             <>
@@ -144,6 +145,7 @@ const App = () => {
               <span className="accent">{`${personality.drink} 🍹`}</span>
             </>
           </h2>
+          <button className="restart" onClick={start}>Restart</button>
         </div>
       </div>
 

@@ -81,7 +81,7 @@ html, body, #root, .app {
     left: 15vh;
     top: 7vh;
     margin: auto;
-    height: calc(100% - 10vh);
+    height: calc(100% - 12vh);
     overflow-y: scroll;
     // scrollbar-width: 0 !important;
 
@@ -131,14 +131,14 @@ html, body, #root, .app {
         text-align: left;
         text-shadow: 0 .2vh .2vh rgba(0, 0, 0, .2);
         transition: opacity 1s;
-        margin: 15vh 0 22vh;
+        margin: 10vh 0 22vh;
       }
 
       &-options {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        gap: 1vh;
+        margin-bottom: 4vh;
 
         &-option {
           padding: 3vh 6vh;
@@ -177,7 +177,7 @@ html, body, #root, .app {
   }
 
 
-  .start, .restart {
+  .start {
     position: absolute;
     font-family: 'Lineca';
     top: 50%;
@@ -185,10 +185,6 @@ html, body, #root, .app {
     transform: translate(-50%, -50%);
     font-size: 6vh;
     padding: 3vh 6vh;
-  }
-
-  .restart {
-    top: calc(100% - 5vh);
   }
 
   .hidden {
