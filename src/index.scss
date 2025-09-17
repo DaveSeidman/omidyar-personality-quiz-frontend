@@ -31,6 +31,9 @@ html, body, #root, .app {
 
 .app {
   background: $black;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
   .logo {
     position: absolute;
@@ -40,7 +43,6 @@ html, body, #root, .app {
     height: 15vh;
   }
   h1, h2, p, a, button, label {
-    // font-family: 'Feijoa';
     color: $white;
     text-rendering: geometricPrecision;
     font-weight: 100;
@@ -49,31 +51,25 @@ html, body, #root, .app {
   button {
     margin: 1vh;
     background: #6c266c;
-
-    // background: transparent;
-    // background: rgba(2, 30, 45, 0.2);
-    // border: 1px solid $white;
-    // border-radius: 2vh;
     border: 1px solid white;
     border-radius: 2vh;
     font-size: 4vh;
-    // backdrop-filter: blur(5px) brightness(150%);
     box-shadow: 0 10px 20px rgba(0, 0, 0, .3);
   }
 
   .background {
     position: absolute;
-    inset: -4vh;
-    transition: opacity 1s, visibility 1s;
-    filter: blur(1vh);
-    // &.hidden {
-      // opacity: .5;
-      // visibility: visible;
-    // }
+    inset: 0;
+    transition: filter 1s;
+    
+    &.muted {
+      filter: blur(1vh);
+    }
 
     video {
-      width: 100%;
-      height: 100%;
+      width: calc(100% + 8vh);
+      height: calc(100% + 8vh);
+      margin: -4vh;
       object-fit: cover;
     }
   }
@@ -83,59 +79,37 @@ html, body, #root, .app {
     position: absolute;
     width: calc(100% - 30vh);
     left: 15vh;
+    top: 7vh;
     margin: auto;
-    height: 100%;
+    height: calc(100% - 10vh);
     overflow-y: scroll;
 
     &-question {
-      // width: 100vw;
-      // height: 100vh;
-      // position: absolute;
-      // display: flex;
-      // flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
-      // text-wrap: balance;
       overflow: hidden;
       height: auto;
-      margin: 10vh 0;
 
       &.hidden {
         height: 0;
       }
       &-text {
-        // height: 6vh;
-        // text-wrap: pretty;
         font-family: 'Lineca';
         font-size: 6vh;
         font-weight: 300;
         text-align: left;
-        // font-family: 'Feijoa';
         text-shadow: 0 .2vh .2vh rgba(0, 0, 0, .8);
         transition: opacity 1s;
-        // margin: 3vh 6vh;
-        // opacity: 0;
       }
 
       &-options {
-        // height: calc(100vh - 6vh);
-        // outline: 2px solid red;
         display: flex;
         flex-direction: column;
-        // flex-wrap: no-wrap;
-        // justify-content: flex-end;
         align-items: flex-end;
         gap: 1vh;
 
         &-option {
-          // width: calc(50% - 5vh);
           padding: 3vh 6vh;
-          // height: 50%;
-          // flex: 2;
           font-family: 'Feijoa';
-          // height: 30vh;
           transition: opacity 1s, visibility 1s;
-          // opacity: 0;
 
           p {            
             margin: 0;
@@ -219,13 +193,12 @@ html, body, #root, .app {
 
   .start, .restart {
     position: absolute;
-    font-family: 'Feijoa';
+    font-family: 'Lineca';
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2vh;
-    padding: 1vh 2vh;
-    font-weight: bold;
+    font-size: 6vh;
+    padding: 3vh 6vh;
   }
 
   .restart {

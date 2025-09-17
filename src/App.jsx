@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { modeRandomTie, shuffle } from './utils';
+import Typewriter from 'typewriter-effect';
 import questions from './assets/data/questions.json';
 import personalities from './assets/data/personalities.json';
 import backgroundVideo from './assets/videos/background1.mp4';
+import Question from './components/Question';
 import logo from './assets/images/logo.svg';
 
 import './index.scss';
@@ -87,33 +89,25 @@ const App = () => {
 
   return (
     <div className='app'>
-      <div className='background'>
+      <div className={`background ${questionIndex >= 0 ? 'muted' : ''}`}>
         <video src={backgroundVideo} muted loop autoPlay playsInline />
       </div>
-
-
       <div className="questions" ref={questionsRef}>
         {questions.map((question, i) => (
           <div
             key={question.id}
             className={`questions-question ${i > questionIndex ? 'hidden' : ''} ${i === questionIndex ? '' : 'disabled'}`}
           >
-            <h1 className="questions-question-text">{question.text}</h1>
-            <div className="questions-question-options">
-              {question.options.map((option, order) => (
-                <button
-                  key={`${question.id}-${option.id}`}
-                  data-index={i}
-                  data-id={option.id}
-                  data-order={order + 1}
-                  style={{ transitionDelay: `${(order + 1) / 2}s` }}
-                  className="questions-question-options-option"
-                  onClick={addResponse}
-                >
-                  {option.text}
-                </button>
-              ))}
-            </div>
+            {questions.map((question, i) => (
+              <Question
+                key={question.id}
+                // key={`${question.id}-${questionIndex}`}
+                question={question}
+                index={i}
+                active={i === questionIndex}
+                onAnswer={addResponse}
+              />
+            ))}
           </div>
         ))}
 
