@@ -38,6 +38,12 @@ const App = () => {
     }
   };
 
+  const restart = () => {
+    setQuestionIndex(-1);
+    setResponses([])
+    setPersonality({})
+  }
+
   const addResponse = (e) => {
     const startedAt = questionTimer.current ?? performance.now();
     const delay = Math.max(0, Math.round(performance.now() - startedAt));
@@ -117,7 +123,7 @@ const App = () => {
               {questionIndex === i && (
                 <TypeAnimation
                   sequence={[question.text]}
-                  speed={1}
+                  speed={.1}
                 />
               )}
               {questionIndex > i && (
@@ -143,7 +149,7 @@ const App = () => {
                         // order * 3000,
                         option.text,
                       ]}
-                      speed={1}
+                      speed={.01}
                       cursor={false}
                     />
                   )}
@@ -158,7 +164,6 @@ const App = () => {
         ))}
 
         <div className={`questions-results results ${personality.name ? '' : 'hidden'}`}>
-          <h1 className="questions-results-text">Congratulations!</h1>
           <h1 className="questions-results-text"><><span>Based on your answers you've matched with the</span><span className="accent">{`${personality.name}!`}</span></></h1>
           <h2 className="questions-results-text">{personality.description}</h2>
           <h2 className="questions-results-text">
@@ -168,7 +173,7 @@ const App = () => {
             </>
           </h2>
           <div className="restart">
-            <button onClick={start}>Restart</button>
+            <button onClick={restart}>Restart</button>
           </div>
         </div>
       </div>
