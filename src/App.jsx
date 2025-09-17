@@ -11,12 +11,20 @@ const App = () => {
   const [questionIndex, setQuestionIndex] = useState(-1);
   const [responses, setResponses] = useState([]);
   const [personality, setPersonality] = useState({});
+  const [fullscreen, setFullscreen] = useState(false);
 
   const questionTimer = useRef();
   const questionsRef = useRef();
 
   const timeoutRef = useRef();
   const IDLE_DELAY = 60000;
+
+  const handleFullscreenChange = (e) => {
+    // console.log(e)
+    // const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement ||
+
+    setFullscreen(document.fullscreenElement !== null)
+  }
 
   const start = () => {
     setQuestionIndex(0);
@@ -25,6 +33,11 @@ const App = () => {
     questions.forEach((q) => {
       q.options = shuffle(q.options); // still shuffle their order
     });
+
+    if (!fullscreen) {
+      document.documentElement.webkitRequestFullScreen();
+      setFullscreen(true);
+    }
   };
 
   const addResponse = (e) => {
@@ -78,8 +91,12 @@ const App = () => {
 
   useEffect(() => {
     addEventListener('click', resetIdleTimeout);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
     return () => {
       removeEventListener('click', resetIdleTimeout);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
