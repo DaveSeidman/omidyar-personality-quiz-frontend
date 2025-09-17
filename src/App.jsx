@@ -47,6 +47,7 @@ const App = () => {
 
   const idleTimeout = () => {
     setQuestionIndex(-1);
+    setPersonality({})
   };
 
   const resetIdleTimeout = () => {
@@ -63,18 +64,15 @@ const App = () => {
       const matchedPersonality = personalities.find(p => p.id === bestOption.id)
       console.log({ matchedPersonality })
       setPersonality(matchedPersonality)
-      // axios.post('http://localhost:8000/persona', { responses }).then(res => {
-      //   setPersona(res.data);
-      // });
     }
   }, [responses.length]);
 
   useEffect(() => {
     if (questionIndex >= 0) {
-      // questionTypewriters.current[questionIndex]?.start();
-
       const questionEl = questionsRef.current?.children[questionIndex];
-      questionEl?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        questionEl?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
     }
   }, [questionIndex]);
 
@@ -121,9 +119,14 @@ const App = () => {
         ))}
 
         <div className={`questions-results results ${personality.name ? '' : 'hidden'}`}>
-          <h1 className="questions-results-text">{`Congratulations! Based on your answers you've matched with the ${personality.name}!`}</h1>
+          <h1 className="questions-results-text"><><span>Congratulations!</span><span>Based on your answers you've matched with the</span><span class="accent">{personality.name}</span><span>!</span></></h1>
           <h2 className="questions-results-text">{personality.description}</h2>
-          <h2 className="questions-results-text">{`Ask your bartender for a: ${personality.drink}`}</h2>
+          <h2 className="questions-results-text">
+            <>
+              <span>Ask your bartender for a</span>
+              <span className="accent">{`${personality.drink} 🍹`}</span>
+            </>
+          </h2>
         </div>
       </div>
 

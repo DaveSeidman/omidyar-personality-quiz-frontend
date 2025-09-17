@@ -3,18 +3,18 @@
     "id": "A",
     "name": "Coalition Builder Cocktail",
     "description": "You're the natural connector who believes the best tech solutions emerge when diverse voices come together with shared power.",
-    "drink": "B L A C K B E R R Y S M A S H"
+    "drink": "Blackberry Smash"
   },
   {
     "id": "B",
     "name": "Prosperity Pour",
     "description": "You're the equity and inclusion champion who ensures everyone gets their fair share of technology's benefits.",
-    "drink": "T H YM E F O R A D R I N K"
+    "drink": "Thyme For a drink"
   },
   {
     "id": "C",
     "name": "Visionary's Elixir",
     "description": "You're the possibility pioneer who believes in technology's power to create wondrous new realities when guided by human imagination and intentional choices.",
-    "drink": "B E T T E R PA LO M A"
+    "drink": "Better Paloma"
   }
 ]
