@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { modeRandomTie, shuffle } from './utils';
 import questions from './assets/data/questions.json';
+import personalities from './assets/data/personalities.json';
 import backgroundVideo from './assets/videos/background1.mp4';
+import logo from './assets/images/logo.svg';
 
 import './index.scss';
 
@@ -9,12 +11,13 @@ const App = () => {
 
   const [questionIndex, setQuestionIndex] = useState(-1);
   const [responses, setResponses] = useState([]);
-  const [attract, setAttract] = useState(true);
+  // const [attract, setAttract] = useState(true);
   const [persona, setPersona] = useState();
   const questionTimer = useRef();
+  const questionsRef = useRef();
 
   const timeoutRef = useRef();
-  const IDLE_DELAY = 20000;
+  const IDLE_DELAY = 60000;
   const IDLE_DURATION = 5000; // use this only if we want an "are you still there?" screen
 
   const start = () => {
@@ -45,7 +48,8 @@ const App = () => {
   }
 
   const idleTimeout = () => {
-    setAttract(true);
+    // setAttract(true);
+    setQuestionIndex(-1);
   }
 
   const resetIdleTimeout = () => {
@@ -66,6 +70,12 @@ const App = () => {
   }, [responses.length])
 
   useEffect(() => {
+
+    const questionEl = Array.from(questionsRef.current?.children)[questionIndex];
+    questionEl?.scrollIntoView({ behavior: 'smooth' });
+  }, [questionIndex])
+
+  useEffect(() => {
     addEventListener('click', resetIdleTimeout);
     return (() => {
       removeEventListener('click', resetIdleTimeout);
@@ -73,18 +83,20 @@ const App = () => {
         clearTimeout(timeoutRef.current);
       }
     })
-  })
+  }, [])
 
   return (
     <div className='app'>
       <div className='background'>
         <video src={backgroundVideo} muted loop autoPlay playsInline />
       </div>
-      <div className={`questions ${questionIndex >= 0 ? '' : 'hidden'}`}>
+
+
+      <div className="questions" ref={questionsRef}>
         {questions.map((question, i) => (
           <div
             key={question.id}
-            className={`questions-question ${i > questionIndex ? 'hidden' : ''}`}
+            className={`questions-question ${i > questionIndex ? 'hidden' : ''} ${i === questionIndex ? '' : 'disabled'}`}
           >
             <h1 className="questions-question-text">{question.text}</h1>
             <div className="questions-question-options">
@@ -93,7 +105,6 @@ const App = () => {
                   key={`${question.id}-${option.id}`}
                   data-index={i}
                   data-id={option.id}
-                  // data-persona={option.persona}
                   data-order={order + 1}
                   style={{ transitionDelay: `${(order + 1) / 2}s` }}
                   className="questions-question-options-option"
@@ -105,23 +116,7 @@ const App = () => {
             </div>
           </div>
         ))}
-      </div>
 
-      <div className={`results ${questionIndex >= questions.length ? '' : 'hidden'}`}>
-        <h1 className="results-title">Congratulations...</h1>
-        <div className="results-subtitle">
-          <p>{`You are the`}</p><p className="bold">{persona?.name}</p></div>
-        <div className="results-poem">{
-          persona?.poem?.map(line => (
-            <p className="results-poem-line" dangerouslySetInnerHTML={{ __html: line }} />
-          ))}
-        </div>
-        <button
-          className="restart"
-          onClick={start}
-        >
-          Restart
-        </button>
       </div>
       <button
         className={`start ${questionIndex < 0 ? '' : 'hidden'}`}
@@ -129,7 +124,9 @@ const App = () => {
       >
         Begin
       </button>
-    </div>
+
+      <img className='logo' src={logo} />
+    </div >
   );
 }
 
